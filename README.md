@@ -34,3 +34,6 @@ Durante la fase de preparación, se aplicaron las siguientes reglas de negocio y
 2. **Feature Selection:** Se eliminaron variables demográficas (`sex`, `marriage`) por motivos éticos y regulatorios. Se utilizó Información Mutua (*Mutual Information*) para descartar variables con bajo poder predictivo.
 3. **Transformación:** Se aplicó `StandardScaler` a las variables continuas para evitar sesgos de magnitud en el modelo de regresión.
 4. **Baseline Model:** Se entrenó una Regresión Logística inicial con pesos balanceados (`class_weight='balanced'`). Se obtuvo un **Recall del 62%** para la clase minoritaria (impago).
+
+## Optimización y Negocio: 
+Se generó una variable conductual (`max_delay`) que mejoró la detección base reduciendo los Falsos Negativos a 489. Se realizó un análisis de *Threshold Tuning* (Optimización de Umbral), concluyendo que priorizar el *Recall* (minimizar Falsos Negativos) penaliza matemáticamente el *F1-Score*, pero es la decisión correcta para alinear el modelo con el apetito de riesgo de la entidad bancaria.
