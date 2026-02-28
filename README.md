@@ -28,3 +28,9 @@ Durante la fase de preparación, se aplicaron las siguientes reglas de negocio y
 3. **Valores Nulos:** Se verificó la ausencia total de valores nulos (NaNs) en el dataset.
 4. **Tratamiento de Outliers:** Se utilizó el rango intercuartílico (IQR) para detectar anomalías en variables monetarias. Posteriormente, se aplicó la técnica de *Winsorization* (Topeo) al percentil 1% y 99% para mitigar el impacto matemático de los valores extremos sin perder los registros de los clientes.
 5. **EDA:** Se evidenció asimetría positiva en las variables monetarias y un desbalanceo en la variable objetivo (~78% clase 0 vs ~22% clase 1), lo que condicionará la elección de métricas de evaluación en el modelado.
+
+## Modelado y Evaluación
+1. **Validación:** Se dividió el dataset en Entrenamiento (80%) y Prueba (20%), manteniendo la proporción de la variable objetivo (`stratify`).
+2. **Feature Selection:** Se eliminaron variables demográficas (`sex`, `marriage`) por motivos éticos y regulatorios. Se utilizó Información Mutua (*Mutual Information*) para descartar variables con bajo poder predictivo.
+3. **Transformación:** Se aplicó `StandardScaler` a las variables continuas para evitar sesgos de magnitud en el modelo de regresión.
+4. **Baseline Model:** Se entrenó una Regresión Logística inicial con pesos balanceados (`class_weight='balanced'`). Se obtuvo un **Recall del 62%** para la clase minoritaria (impago).
