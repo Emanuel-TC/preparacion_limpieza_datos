@@ -20,3 +20,11 @@ Para reproducir este proyecto es necesario crear un entorno virtual e instalar l
 * `bill_amt1` a `bill_amt6`: Monto del extracto de la cuenta (facturación) de los últimos 6 meses.
 * `pay_amt1` a `pay_amt6`: Monto del pago anterior (cuánto pagó el cliente realmente) en los últimos 6 meses.
 * `default_payment`: (Variable Objetivo) 1 = Impago el próximo mes, 0 = Sin impago.
+
+## Resumen de Procesamiento y Limpieza
+Durante la fase de preparación, se aplicaron las siguientes reglas de negocio y limpieza:
+1. **Eliminación de ruido:** Se eliminó la columna `id` al no tener valor predictivo. No se detectaron filas duplicadas exactas ni columnas de varianza cero.
+2. **Inconsistencias:** Se corrigieron valores no documentados en las variables `education` (0, 5, 6) y `marriage` (0), agrupándolos en la categoría "Otros".
+3. **Valores Nulos:** Se verificó la ausencia total de valores nulos (NaNs) en el dataset.
+4. **Tratamiento de Outliers:** Se utilizó el rango intercuartílico (IQR) para detectar anomalías en variables monetarias. Posteriormente, se aplicó la técnica de *Winsorization* (Topeo) al percentil 1% y 99% para mitigar el impacto matemático de los valores extremos sin perder los registros de los clientes.
+5. **EDA:** Se evidenció asimetría positiva en las variables monetarias y un desbalanceo en la variable objetivo (~78% clase 0 vs ~22% clase 1), lo que condicionará la elección de métricas de evaluación en el modelado.
